@@ -52,4 +52,5 @@ def plot(xValues='nswdemand', yValues='nswprice'):
     plt.grid(True)
     plt.show()
 
-plot()
+plot("nswdemand", "nswprice")
+plot("vicdemand", "vicprice")
