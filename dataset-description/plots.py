@@ -40,7 +40,7 @@ data_start_index = arff_content.index('@DATA\n') + 1
 data_lines = arff_content[data_start_index:]
 
 # Parse the data lines into a DataFrame
-data = [line.strip().split(',') for line in data_lines if line.strip() != '']
+data = [[value.strip() for value in line.strip().split(',')] for line in data_lines if line.strip() != '' and line[0] != "%"]
 df_soybean = pd.DataFrame(data, columns=['date',
                                         'plant-stand',
                                         'precip',
@@ -119,11 +119,34 @@ def soybean_histogram(xValues="date"):
     plt.show()
 
 
+def soybean_missingValues_histogram():
+
+    names = []
+    missingValues = []
+    
+    for col in df_soybean:
+        names += [col]
+        try:
+            missingValues += [df_soybean[col].value_counts()['?']]
+        except KeyError:
+            missingValues += [0]
+
+    plt.bar(names, missingValues, color='orange')
+
+    plt.xlabel("column")
+    plt.ylabel('number of missing')
+    plt.title(f'frequency of missing values')
+    plt.xticks(rotation=45, ha='right')
+   
+    plt.show()
+
+
 def main():
     #plot("nswdemand", "nswprice")
     #plot("vicdemand", "vicprice")
     #histogram()
-    soybean_histogram()
+    #soybean_histogram()
+    soybean_missingValues_histogram()
 
 if __name__ == "__main__":
     main()
