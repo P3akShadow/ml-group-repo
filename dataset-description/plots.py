@@ -140,14 +140,37 @@ def soybean_missingValues_histogram():
     plt.tight_layout()
     plt.show()
 
+def soybean_missingValuesPerClass():
+
+    missingValues = {}
+    for _, row in df_soybean.iterrows():
+        missing = 0
+        for col in row:
+            if col == "?":
+                missing +=1
+        
+        if row["class"] not in missingValues:
+            missingValues[row["class"]] = missing
+        else:
+            missingValues[row["class"]] += missing
+
+    plt.bar(list(missingValues.keys()), list(missingValues.values()), color='orange')
+
+    plt.xlabel("column")
+    plt.ylabel('number of missing')
+    plt.title(f'frequency of missing values')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
 
 def main():
     #plot("nswdemand", "nswprice")
     #plot("vicdemand", "vicprice")
     #histogram()
     #soybean_histogram()
-    soybean_histogram("class")
-    soybean_missingValues_histogram()
+    #soybean_histogram("class")
+    #soybean_missingValues_histogram()
+    soybean_missingValuesPerClass()
 
 if __name__ == "__main__":
     main()
