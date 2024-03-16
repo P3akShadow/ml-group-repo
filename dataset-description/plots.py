@@ -131,13 +131,14 @@ def soybean_missingValues_histogram():
         except KeyError:
             missingValues += [0]
 
+    plt.figure(figsize=(12, 8))
     plt.bar(names, missingValues, color='orange')
 
     plt.xlabel("column")
     plt.ylabel('number of missing')
     plt.title(f'frequency of missing values')
     plt.xticks(rotation=45, ha='right')
-   
+    plt.tight_layout()
     plt.show()
 
 
