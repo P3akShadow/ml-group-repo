@@ -110,17 +110,16 @@ def soybean_histogram(xValues="date"):
 
     #reset index takes different indices and makes them the first line
     counts = df_soybean[xValues].value_counts().reset_index().set_axis(["value", "count"], axis=1)
-    print(counts)
     
     plt.bar(counts["value"], counts["count"], color='green')
     plt.xlabel(xValues)
     plt.ylabel('frequency')
     plt.title(f'frequency of {xValues}')
+    plt.xticks(rotation=45, ha='right')
     plt.show()
 
 
 def soybean_missingValues_histogram():
-
     names = []
     missingValues = []
     
@@ -137,7 +136,6 @@ def soybean_missingValues_histogram():
     plt.ylabel('number of missing')
     plt.title(f'frequency of missing values')
     plt.xticks(rotation=45, ha='right')
-   
     plt.show()
 
 
@@ -146,6 +144,7 @@ def main():
     #plot("vicdemand", "vicprice")
     #histogram()
     #soybean_histogram()
+    soybean_histogram("class")
     soybean_missingValues_histogram()
 
 if __name__ == "__main__":
