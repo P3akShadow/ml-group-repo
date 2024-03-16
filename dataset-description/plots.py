@@ -32,6 +32,51 @@ df["vicdemand"]=pd.to_numeric(df["vicdemand"])
 df["transfer"]=pd.to_numeric(df["transfer"])
 
 
+with open(os.path.join('..', 'datasets', 'dataset_42_soybean.arff'), 'r') as file:
+    arff_content = file.readlines()
+
+# Find the start of the data section
+data_start_index = arff_content.index('@DATA\n') + 1
+data_lines = arff_content[data_start_index:]
+
+# Parse the data lines into a DataFrame
+data = [line.strip().split(',') for line in data_lines if line.strip() != '']
+df_soybean = pd.DataFrame(data, columns=['date',
+                                        'plant-stand',
+                                        'precip',
+                                        'temp',
+                                        'hail',
+                                        'crop-hist',
+                                        'area-damaged',
+                                        'severity',
+                                        'seed-tmt',
+                                        'germination',
+                                        'plant-growth',
+                                        'leaves',
+                                        'leafspots-halo',
+                                        'leafspots-marg',
+                                        'leafspot-size',
+                                        'leaf-shread',
+                                        'leaf-malf',
+                                        'leaf-mild',
+                                        'stem',
+                                        'lodging',
+                                        'stem-cankers',
+                                        'canker-lesion',
+                                        'fruiting-bodies',
+                                        'external-decay',
+                                        'mycelium',
+                                        'int-discolor',
+                                        'sclerotia',
+                                        'fruit-pods',
+                                        'fruit-spots',
+                                        'seed',
+                                        'mold-growth',
+                                        'seed-discolor',
+                                        'seed-size',
+                                        'shriveling',
+                                        'roots',
+                                        'class'])
 
 def plot(xValues='nswdemand', yValues='nswprice'):
     plt.figure(figsize=(12, 6))
@@ -61,10 +106,20 @@ def histogram(xValues='nswdemand'):
     plt.title(f'frequency of {xValues}')
     plt.show()
 
+def soybean_histogram(xValues="date"):
+
+    plt.hist(df[xValues], color='green', edgecolor='black')
+    plt.xlabel(xValues)
+    plt.ylabel('frequency')
+    plt.title(f'frequency of {xValues}')
+    plt.show()
+
+
 def main():
     plot("nswdemand", "nswprice")
     plot("vicdemand", "vicprice")
     histogram()
+    soybean_histogram()
 
 if __name__ == "__main__":
     main()
