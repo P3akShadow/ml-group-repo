@@ -53,5 +53,18 @@ def plot(xValues='nswdemand', yValues='nswprice'):
     plt.grid(True)
     plt.show()
 
-plot("nswdemand", "nswprice")
-plot("vicdemand", "vicprice")
+def histogram(xValues='nswdemand'):
+
+    plt.hist(df[xValues], color='skyblue', edgecolor='black')
+    plt.xlabel(xValues)
+    plt.ylabel('frequency')
+    plt.title(f'frequency of {xValues}')
+    plt.show()
+
+def main():
+    plot("nswdemand", "nswprice")
+    plot("vicdemand", "vicprice")
+    histogram()
+
+if __name__ == "__main__":
+    main()
