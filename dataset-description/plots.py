@@ -108,7 +108,11 @@ def histogram(xValues='nswdemand'):
 
 def soybean_histogram(xValues="date"):
 
-    plt.hist(df[xValues], color='green', edgecolor='black')
+    #reset index takes different indices and makes them the first line
+    counts = df_soybean[xValues].value_counts().reset_index().set_axis(["value", "count"], axis=1)
+    print(counts)
+    
+    plt.bar(counts["value"], counts["count"], color='green')
     plt.xlabel(xValues)
     plt.ylabel('frequency')
     plt.title(f'frequency of {xValues}')
@@ -116,9 +120,9 @@ def soybean_histogram(xValues="date"):
 
 
 def main():
-    plot("nswdemand", "nswprice")
-    plot("vicdemand", "vicprice")
-    histogram()
+    #plot("nswdemand", "nswprice")
+    #plot("vicdemand", "vicprice")
+    #histogram()
     soybean_histogram()
 
 if __name__ == "__main__":
