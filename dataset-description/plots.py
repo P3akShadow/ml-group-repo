@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
-with open('../datasets/electricity-normalized.arff', 'r') as file:
+with open(os.path.join('..', 'datasets', 'electricity-normalized.arff'), 'r') as file:
     arff_content = file.readlines()
 
 # Find the start of the data section
