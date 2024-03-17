@@ -116,6 +116,7 @@ def soybean_histogram(xValues="date"):
     plt.ylabel('frequency')
     plt.title(f'frequency of {xValues}')
     plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
     plt.show()
 
 
