@@ -79,7 +79,7 @@ df_soybean = pd.DataFrame(data, columns=['date',
                                         'class'])
 
 def plot(xValues='nswdemand', yValues='nswprice'):
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(10, 5))
     
     # Filtering the DataFrame for 'UP' and 'DOWN' classes
     up_df = df[df['class'] == 'UP']
@@ -94,6 +94,7 @@ def plot(xValues='nswdemand', yValues='nswprice'):
     plt.title(f'{yValues} vs. {xValues} by Class')
     plt.xlabel(xValues)
     plt.ylabel(yValues)
+    plt.tight_layout()
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -107,14 +108,15 @@ def histogram(xValues='nswdemand'):
     plt.show()
 
 def soybean_histogram(xValues="date"):
+    plt.figure(figsize=(10, 5))
 
     #reset index takes different indices and makes them the first line
     counts = df_soybean[xValues].value_counts().reset_index().set_axis(["value", "count"], axis=1)
     
     plt.bar(counts["value"], counts["count"], color='green')
     plt.xlabel(xValues)
-    plt.ylabel('frequency')
-    plt.title(f'frequency of {xValues}')
+    plt.ylabel('Number of instances')
+    plt.title(f'Number of instances per {xValues}')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
@@ -131,7 +133,7 @@ def soybean_missingValues_histogram():
         except KeyError:
             missingValues += [0]
 
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(13, 5))
     plt.bar(names, missingValues, color='orange')
 
     plt.xlabel("column")
@@ -142,6 +144,7 @@ def soybean_missingValues_histogram():
     plt.show()
 
 def soybean_missingValuesPerClass():
+    plt.figure(figsize=(10, 5))
 
     missingValues = {}
     for _, row in df_soybean.iterrows():
@@ -157,9 +160,9 @@ def soybean_missingValuesPerClass():
 
     plt.bar(list(missingValues.keys()), list(missingValues.values()), color='orange')
 
-    plt.xlabel("column")
-    plt.ylabel('number of missing')
-    plt.title(f'frequency of missing values')
+    plt.xlabel("Class")
+    plt.ylabel('Number of missing values')
+    plt.title(f'Number of missing values per class')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
